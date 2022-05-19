@@ -4,7 +4,6 @@ import spacy
 
 from abc import ABC, abstractmethod
 from stop_words import get_stop_words
-from typing import List
 
 
 class TextTokenizer(ABC):
@@ -28,7 +27,7 @@ class TextTokenizer(ABC):
             token.pos_ in self.allow_postags
         ])
 
-    async def tokenize(self, text: str) -> List[str]:
+    async def tokenize(self, text: str) -> list[str]:
         return [
             token.lemma_
             for token in self.nlp(text) if self.check_token(token)
