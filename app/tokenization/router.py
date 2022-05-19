@@ -3,7 +3,7 @@
 from fastapi import APIRouter, Depends
 from pydantic import BaseModel
 
-from .dependencies import tokenizer_provider, TextTokenizer
+from .dependencies import get_tokenizer, TextTokenizer
 
 
 class RawText(BaseModel):
@@ -19,7 +19,7 @@ router = APIRouter()
 
 @router.post("/", response_model=TokenizedText)
 async def tokenizer(
-    raw_text: RawText, tokenizer: TextTokenizer = Depends(tokenizer_provider)
+    raw_text: RawText, tokenizer: TextTokenizer = Depends(get_tokenizer)
 ):
     tokens = await tokenizer.tokenize(raw_text.body)
     return TokenizedText(tokens=tokens)

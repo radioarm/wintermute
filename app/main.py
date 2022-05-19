@@ -3,17 +3,17 @@
 from fastapi import Depends, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from fastapi_simple_security import api_key_router, api_key_security
-
+from .auth import get_api_key
 from .config import get_settings
 from .tokenization.router import router as tokenization_router
+from .similarities.router import router as calculator_router
 
 
 settings = get_settings()
 
 app = FastAPI(
     title=settings.app_name,
-    # dependencies=[Depends(api_key_security), ],
+    dependencies=[Depends(get_api_key)]
 )
 
 app.add_middleware(
@@ -24,8 +24,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(api_key_router, prefix='/auth', tags=['auth', ])
+
 app.include_router(tokenization_router, prefix='/tokenizer', tags=['tokenizer', ])
+app.include_router(calculator_router, prefix='/similarity', tags=['calculator', ])
+
 
 @app.get('/')
 async def homepage():
