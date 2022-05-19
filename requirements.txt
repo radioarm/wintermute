@@ -1,0 +1,10 @@
+fastapi
+python-dotenv
+uvicorn
+starlette
+requests
+fastapi_simple_security
+spacy==3.2.0
+nltk==3.6.5
+gensim==4.1.2
+stop-words==2018.7.23
