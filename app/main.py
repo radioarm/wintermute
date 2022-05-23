@@ -16,13 +16,13 @@ app = FastAPI(
     dependencies=[Depends(get_api_key)]
 )
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=settings.allowed_origins,
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+# app.add_middleware(
+#     CORSMiddleware,
+#     allow_origins=settings.allowed_origins,
+#     allow_credentials=True,
+#     allow_methods=["*"],
+#     allow_headers=["*"],
+# )
 
 
 app.include_router(tokenization_router, prefix='/tokenizer', tags=['tokenizer', ])

@@ -7,17 +7,7 @@ services:
     build: .
     restart: always
     volumes:
-      - ./app:/srv/app
+      # - ./app:/srv/app
       - ./data:/srv/data
-      - runtime:/var/run/
     ports:
       - "8000:8000"
-    networks:
-      - main_network
-
-networks:
-  main_network:
-    driver: bridge
-
-volumes:
-  runtime:
